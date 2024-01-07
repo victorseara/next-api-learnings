@@ -1,14 +1,27 @@
+import 'reflect-metadata';
+import { container } from 'tsyringe';
 import { createRouter } from './lib/core/create-router';
-import { HandlerKey, MethodHandler } from './lib/core/types/api';
+import { InjectionKeys } from './lib/core/injection-keys';
 import { GetUserByIdHandler } from './lib/routes/users/user.[id].get';
-import { GetUserHandler } from './lib/routes/users/users.get';
+import { ParseRouteParamsUseCase } from './lib/use-cases/parse-route-params/parse-route-params.usecase';
 
-const testRouter = new Map<HandlerKey, MethodHandler<unknown>>([
-  ['GET /users', new GetUserHandler()],
-  ['GET /users/:id', new GetUserByIdHandler()],
-]);
+const createContainer = () => {
+  container.register<ParseRouteParamsUseCase>(
+    InjectionKeys.ParseRouteParamsUseCase,
+    {
+      useClass: ParseRouteParamsUseCase,
+    }
+  );
+
+  container.register<GetUserByIdHandler>(InjectionKeys.GetUserByIdHandler, {
+    useClass: GetUserByIdHandler,
+  });
+
+  return container;
+};
 
 export const handler = createRouter({
-  baseUrl: '/api/backend',
-  routerMap: testRouter,
+  basePath: '/api/backend',
+  injectionKeys: InjectionKeys,
+  createContainer: createContainer,
 });

@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import type { HandlerExecute, MethodHandler } from '../../core/types/api';
+import { injectable } from 'tsyringe';
 
 const getUserResultSchema = z.object({
   id: z.number(),
@@ -9,9 +10,9 @@ const getUserResultSchema = z.object({
 
 type GetUserResponse = z.infer<typeof getUserResultSchema>;
 
+@injectable()
 export class GetUserHandler implements MethodHandler<GetUserResponse> {
   execute: HandlerExecute<GetUserResponse> = async (req, res) => {
-    console.log({ query: req.query });
     const result: GetUserResponse = {
       id: 1,
       name: 'John Doe',

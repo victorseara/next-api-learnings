@@ -1,6 +1,8 @@
-import { NextApiRequest } from 'next';
-import { MethodHandler, HandlerExecute } from '../../core/types/api';
+import { inject, injectable } from 'tsyringe';
 import { z } from 'zod';
+import { HandlerExecute, MethodHandler } from '../../core/types/api';
+import { IParseRouteParamsUseCase } from '../../use-cases/parse-route-params/parse-route-params.usecase';
+import { InjectionKeys } from '../../core/injection-keys';
 
 const getUserByIdResultSchema = z.object({
   id: z.number(),
@@ -9,30 +11,28 @@ const getUserByIdResultSchema = z.object({
 });
 
 const getUserByIdParamsSchema = z.object({
-  id: z.string().transform((item) => parseInt(item, 10)),
+  id: z.string().transform(Number),
 });
 
-const apiParamsSchema = z.object({
-  backend: z.array(z.string()),
-});
-
-type NextApiQuery = NextApiRequest['query'];
-
-function getRouteParam(query: NextApiQuery, paramPosition: number) {
-  const params = apiParamsSchema.parse(query);
-
-  return params.backend[paramPosition];
-}
-
+type GetUserByIdParams = z.infer<typeof getUserByIdParamsSchema>;
 type GetUserByIdResponse = z.infer<typeof getUserByIdResultSchema>;
 
+@injectable()
 export class GetUserByIdHandler implements MethodHandler<GetUserByIdResponse> {
+  constructor(
+    @inject('ParseRouteParamsUseCase')
+    private parseRouteParamsUseCase: IParseRouteParamsUseCase
+  ) {}
+
   execute: HandlerExecute<GetUserByIdResponse> = (req, res) => {
-    const idParam = getRouteParam(req.query, 1);
-    const param = getUserByIdParamsSchema.parse({ id: idParam });
+    const { id } = this.parseRouteParamsUseCase.execute<GetUserByIdParams>(
+      req.query,
+      InjectionKeys.GetUserByIdHandler,
+      getUserByIdParamsSchema
+    );
 
     const result: GetUserByIdResponse = {
-      id: param.id,
+      id,
       name: 'John Doe',
       email: 'johndoe@email.com',
     };

@@ -1,27 +1,37 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { MethodHandler, HandlerKey, HttpVerb } from './types/api';
-import { getHandler } from './get-handler';
+import { DependencyContainer } from 'tsyringe';
+import { getHandlerInjectionKey } from './get-handler-injection-keys';
+import { MethodHandler } from './types/api';
 
-type RouterConfig = {
-  baseUrl: string;
-  routerMap: Map<HandlerKey, MethodHandler<unknown>>;
+type CreateRouterArgs = {
+  createContainer: () => DependencyContainer;
+  basePath: string;
+  injectionKeys: Record<string, string>;
 };
 
-export function createRouter(config: RouterConfig) {
+export function createRouter({
+  basePath,
+  createContainer,
+  injectionKeys,
+}: CreateRouterArgs) {
   return async (req: NextApiRequest, res: NextApiResponse) => {
     try {
-      const baseUrl = config.baseUrl;
-      const fullPath = req.url?.replace(baseUrl, '');
+      const container = createContainer();
+      const fullPath = req.url?.replace(basePath, '');
       const method = req.method;
 
       if (!fullPath || !method) {
         throw new Error('Path or method not found');
       }
 
-      const handler = getHandler(
-        `${method as HttpVerb} ${fullPath}`,
-        config.routerMap
+      const handlerKey = `${method} ${fullPath}`;
+
+      const injectionKey = getHandlerInjectionKey(
+        handlerKey,
+        Object.values(injectionKeys)
       );
+
+      const handler = container.resolve<MethodHandler<unknown>>(injectionKey);
 
       if (!handler) {
         throw new Error('Handler not found');

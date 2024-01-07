@@ -15,6 +15,4 @@ export interface MethodHandler<T> {
 }
 
 export type HttpVerb = 'GET' | 'POST' | 'PUT' | 'PATH' | 'DELETE';
-
-export type HandlerKey = `${HttpVerb} ${string}`;
-export type HandlerMap = Map<HandlerKey, MethodHandler<unknown>>;
+export type NextApiQuery = NextApiRequest['query'];
