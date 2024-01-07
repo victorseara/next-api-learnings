@@ -1,3 +1,14 @@
-// Use this file to export React client components (e.g. those with 'use client' directive) or other non-server utilities
+import { createRouter } from './lib/core/create-router';
+import { HandlerKey, MethodHandler } from './lib/core/types/api';
+import { GetUserByIdHandler } from './lib/routes/users/user.[id].get';
+import { GetUserHandler } from './lib/routes/users/users.get';
 
-export * from './lib/api';
+const testRouter = new Map<HandlerKey, MethodHandler<unknown>>([
+  ['GET /users', new GetUserHandler()],
+  ['GET /users/:id', new GetUserByIdHandler()],
+]);
+
+export const handler = createRouter({
+  baseUrl: '/api/backend',
+  routerMap: testRouter,
+});
