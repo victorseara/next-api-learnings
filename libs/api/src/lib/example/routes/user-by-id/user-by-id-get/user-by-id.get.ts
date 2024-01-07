@@ -6,7 +6,7 @@ import {
   GetUserByIdParams,
   GetUserByIdResponse,
   getUserByIdParamsSchema,
-} from './user.[id].schema';
+} from './user-by-id.schema';
 
 @injectable()
 export class GetUserByIdHandler implements MethodHandler<GetUserByIdResponse> {

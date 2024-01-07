@@ -1,12 +1,5 @@
 components:
   schemas:
-    GetUserByIdParams:
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
     GetUserByIdResponse:
       type: object
       properties:

@@ -8,5 +8,7 @@ servers:
   - url: http://localhost:4200/api/backend
     description: Development server
 paths:
-  /users/{id}:
-    $ref: './routes/user.[id]/user.[id].yaml'
+  $ref#users-id: './routes/user-by-id/user-by-id.yaml'
+components:
+  schemas:
+    $ref#GetUserByIdResponse: './routes/user-by-id/user-by-id-get/user-by-id.get.yaml#/components/schemas'

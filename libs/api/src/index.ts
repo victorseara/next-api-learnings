@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import { container } from 'tsyringe';
 import { createRouter } from './lib/core/create-router';
 import { InjectionKeys } from './lib/core/injection-keys';
-import { GetUserByIdHandler } from './lib/example/routes/user.[id]/user.[id].get/user.[id].get';
+import { GetUserByIdHandler } from './lib/example/routes/user-by-id/user-by-id-get/user-by-id.get';
 import {
   IParseRouteParamsUseCase,
   ParseRouteParamsUseCase,
