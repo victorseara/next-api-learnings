@@ -11,7 +11,12 @@ const getUserByIdResultSchema = z.object({
 });
 
 const getUserByIdParamsSchema = z.object({
-  id: z.string().transform(Number),
+  id: z
+    .string()
+    .transform(Number)
+    .refine((id) => !isNaN(id), {
+      message: 'id must be a number',
+    }),
 });
 
 type GetUserByIdParams = z.infer<typeof getUserByIdParamsSchema>;
@@ -20,7 +25,7 @@ type GetUserByIdResponse = z.infer<typeof getUserByIdResultSchema>;
 @injectable()
 export class GetUserByIdHandler implements MethodHandler<GetUserByIdResponse> {
   constructor(
-    @inject('ParseRouteParamsUseCase')
+    @inject(InjectionKeys.ParseRouteParamsUseCase)
     private parseRouteParamsUseCase: IParseRouteParamsUseCase
   ) {}
 

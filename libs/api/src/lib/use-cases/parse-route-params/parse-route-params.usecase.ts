@@ -30,7 +30,10 @@ export class ParseRouteParamsUseCase implements IParseRouteParamsUseCase {
     const result = schema.safeParse(param);
 
     if (!result.success) {
-      throw new BadRequestError(result.error.message);
+      throw new BadRequestError(
+        'Invalid request params',
+        result.error.flatten().fieldErrors
+      );
     }
 
     return result.data as T;

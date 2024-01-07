@@ -3,10 +3,13 @@ import { container } from 'tsyringe';
 import { createRouter } from './lib/core/create-router';
 import { InjectionKeys } from './lib/core/injection-keys';
 import { GetUserByIdHandler } from './lib/routes/users/user.[id].get';
-import { ParseRouteParamsUseCase } from './lib/use-cases/parse-route-params/parse-route-params.usecase';
+import {
+  IParseRouteParamsUseCase,
+  ParseRouteParamsUseCase,
+} from './lib/use-cases/parse-route-params/parse-route-params.usecase';
 
 const createContainer = () => {
-  container.register<ParseRouteParamsUseCase>(
+  container.register<IParseRouteParamsUseCase>(
     InjectionKeys.ParseRouteParamsUseCase,
     {
       useClass: ParseRouteParamsUseCase,

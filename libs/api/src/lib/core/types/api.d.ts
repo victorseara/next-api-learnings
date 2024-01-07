@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import { ApiError } from '../errors/api-errors';
 
 type HandlerResponse<Response> = {
   result?: Response;

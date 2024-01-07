@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { DependencyContainer } from 'tsyringe';
 import { getHandlerInjectionKey } from './get-handler-injection-keys';
 import { MethodHandler } from './types/api';
+import { ApiError } from './errors/api-errors';
 
 type CreateRouterArgs = {
   createContainer: () => DependencyContainer;
@@ -39,8 +40,12 @@ export function createRouter({
 
       await handler.execute(req, res);
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Unknown error';
-      res.status(500).json({ statusCode: 500, message: message });
+      if (error instanceof ApiError) {
+        res.status(error.statusCode).json(error.toJSON());
+        return;
+      }
+
+      res.status(500).json({ statusCode: 500, message: 'Unknown error' });
     }
   };
 }
