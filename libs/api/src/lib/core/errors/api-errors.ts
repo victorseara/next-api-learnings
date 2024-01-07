@@ -18,7 +18,7 @@ export class ApiError extends Error {
 }
 
 export class BadRequestError extends ApiError {
-  constructor(message: string, details: unknown) {
+  constructor(message: string, details?: unknown) {
     super(400, message, details);
   }
 }

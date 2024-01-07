@@ -1,0 +1,33 @@
+components:
+  schemas:
+    GetUserByIdParams:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+    GetUserByIdResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+    GetUserByIdBadRequestResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+            details:
+              type: object
+              properties:
+                id:
+                  type: array
+                  items:
+                    type: string

@@ -1,3 +1,5 @@
+import { BadRequestError } from './errors/api-errors';
+
 export function getHandlerInjectionKey(
   handlerKey: string,
   injectionKeys: string[]
@@ -23,7 +25,7 @@ export function getHandlerInjectionKey(
   });
 
   if (!injectionKey) {
-    throw new Error('Handler not found');
+    throw new BadRequestError('The required path does not exist');
   }
 
   return injectionKey;

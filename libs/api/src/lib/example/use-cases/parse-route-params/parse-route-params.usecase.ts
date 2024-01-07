@@ -1,7 +1,7 @@
 import { injectable } from 'tsyringe';
 import { z } from 'zod';
-import { BadRequestError } from '../../core/errors/api-errors';
-import { NextApiQuery } from '../../core/types/api';
+import { BadRequestError } from '../../../core/errors/api-errors';
+import { NextApiQuery } from '../../../core/types/api';
 
 export interface IParseRouteParamsUseCase {
   execute: <T>(

@@ -1,0 +1,29 @@
+get:
+  summary: Get user by ID
+  operationId: getUserById
+  parameters:
+    - name: id
+      in: path
+      description: ID of the user
+      required: true
+      schema:
+        type: string
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetUserByIdResponse'
+    '400':
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetUserByIdBadRequestResponse'
+components:
+  schemas:
+    GetUserByIdResponse:
+      $ref: './user.[id].get/user.[id].get.yaml#/components/schemas/GetUserByIdResponse'
+    GetUserByIdBadRequestResponse:
+      $ref: './user.[id].get/user.[id].get.yaml#/components/schemas/GetUserByIdBadRequestResponse'

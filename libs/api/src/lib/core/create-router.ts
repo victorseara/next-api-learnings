@@ -2,7 +2,11 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { DependencyContainer } from 'tsyringe';
 import { getHandlerInjectionKey } from './get-handler-injection-keys';
 import { MethodHandler } from './types/api';
-import { ApiError } from './errors/api-errors';
+import {
+  ApiError,
+  BadRequestError,
+  InternalServerError,
+} from './errors/api-errors';
 
 type CreateRouterArgs = {
   createContainer: () => DependencyContainer;
@@ -21,8 +25,12 @@ export function createRouter({
       const fullPath = req.url?.replace(basePath, '');
       const method = req.method;
 
-      if (!fullPath || !method) {
-        throw new Error('Path or method not found');
+      if (!fullPath) {
+        throw new InternalServerError('Cannot get request path');
+      }
+
+      if (!method) {
+        throw new InternalServerError('Cannot get request method');
       }
 
       const handlerKey = `${method} ${fullPath}`;
@@ -35,7 +43,7 @@ export function createRouter({
       const handler = container.resolve<MethodHandler<unknown>>(injectionKey);
 
       if (!handler) {
-        throw new Error('Handler not found');
+        throw new BadRequestError('The required path does not exist');
       }
 
       await handler.execute(req, res);
