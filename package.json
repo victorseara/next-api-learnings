@@ -2,7 +2,9 @@
   "name": "@nextjs-typed-api-routes/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "generate": "vsnextbff"
+  },
   "private": true,
   "dependencies": {
     "@nx/next": "17.2.8",
@@ -14,7 +16,8 @@
     "reflect-metadata": "^0.2.1",
     "tslib": "^2.3.0",
     "tsyringe": "^4.8.0",
-    "zod": "^3.22.4"
+    "zod": "^3.22.4",
+    "@vs-next-bff/open-api": "file:vs-next-bff-open-api-0.0.1.tgz"
   },
   "devDependencies": {
     "@nx/eslint": "17.2.8",

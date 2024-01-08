@@ -1,0 +1,9 @@
+{
+  "backend": {
+    "definitionRoot": "./libs/api/src/lib/example/swagger.yaml",
+    "definitionOutput": "./swagger.yaml"
+  },
+  "external": {
+    "petStore": "https://petstore.swagger.io/v2/swagger.json"
+  }
+}
