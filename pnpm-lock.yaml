@@ -11,6 +11,9 @@ dependencies:
   '@swc/helpers':
     specifier: ~0.5.2
     version: 0.5.3
+  '@vs-next-bff/api':
+    specifier: file:vs-next-bff-api-0.0.1.tgz
+    version: file:vs-next-bff-api-0.0.1.tgz(next@13.4.4)(react-dom@18.2.0)(react@18.2.0)(reflect-metadata@0.2.1)(tsyringe@4.8.0)(zod@3.22.4)
   next:
     specifier: 13.4.4
     version: 13.4.4(@babel/core@7.23.7)(react-dom@18.2.0)(react@18.2.0)
@@ -8209,4 +8212,25 @@ packages:
 
   /zod@3.22.4:
     resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}
+    dev: false
+
+  file:vs-next-bff-api-0.0.1.tgz(next@13.4.4)(react-dom@18.2.0)(react@18.2.0)(reflect-metadata@0.2.1)(tsyringe@4.8.0)(zod@3.22.4):
+    resolution: {integrity: sha512-2dvrOvF7hI3LNE+PlrbDlE2g3H/QzO3NiJj0rkFiEh2sXMhIC5vMPfVv02LhfghdyYwvlxDY9VWxGJH7psedsA==, tarball: file:vs-next-bff-api-0.0.1.tgz}
+    id: file:vs-next-bff-api-0.0.1.tgz
+    name: '@vs-next-bff/api'
+    version: 0.0.1
+    peerDependencies:
+      next: ^13
+      react: ^18
+      react-dom: ^18
+      reflect-metadata: ^0.2.1
+      tsyringe: ^4.8.0
+      zod: ^3.22.4
+    dependencies:
+      next: 13.4.4(@babel/core@7.23.7)(react-dom@18.2.0)(react@18.2.0)
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      reflect-metadata: 0.2.1
+      tsyringe: 4.8.0
+      zod: 3.22.4
     dev: false

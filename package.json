@@ -7,6 +7,7 @@
   "dependencies": {
     "@nx/next": "17.2.8",
     "@swc/helpers": "~0.5.2",
+    "@vs-next-bff/api": "file:vs-next-bff-api-0.0.1.tgz",
     "next": "13.4.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",

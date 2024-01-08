@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@nextjs-typed-api-routes/api": ["libs/api/src/index.ts"]
+      "@nextjs-typed-api-routes/api": ["libs/api/src/index.ts"],
+      "@nextjs-typed-api-routes/api-kit-xp": ["libs/api-kit-xp/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
